@@ -1,0 +1,96 @@
+server:
+  port: 8120
+  shutdown: graceful
+  compression:
+    enabled: true
+  tomcat:
+    max-connections: 5000
+    max-threads: 200
+    min-spare-threads: 10
+
+spring:
+  application:
+    name: viid-server
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    jdbc-url: jdbc:postgresql://${DB_HOST:vmserver}:${DB_PORT:5432}/${DB_DATABASE:postgres}?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123456}
+  # Redis配置
+  redis:
+    database: 0
+    host: ${CACHE_HOST:vmserver}
+    port: ${CACHE_PORT:6379}
+    password: ${CACHE_PASSWORD:123456}
+    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 100 # 连接池最大连接数
+        max-wait: -1ms  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        min-idle: 0 # 连接池中的最小空闲连接
+        max-idle: 8 # 连接池中的最大空闲连接
+  kafka:
+    bootstrap-servers: ${MQ_SERVERS:vmserver:9092}
+    listener:
+      type: batch
+    product:
+      acks: 1
+      properties:
+        ##攒批缓冲区最大堵塞时间
+        linger.ms: 1000
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      max-poll-records: 500
+      properties:
+        receive.buffer.bytes: 10485760
+        fetch.min.bytes: 65536
+        fetch.max.wait.ms: 1500
+
+feign:
+  compression:
+    ##开启压缩 装配于org.springframework.cloud.openfeign.encoding.FeignClientEncodingProperties
+    request:
+      enabled: true
+      min-request-size: 2048
+      mime-types: text/xml,application/xml,application/json
+    response:
+      enabled: true
+  ##启用okhttp 装配于org.springframework.cloud.openfeign.FeignClientsConfiguration
+  okhttp:
+    enabled: true
+  ##配置http client连接池,装配于org.springframework.cloud.openfeign.support.FeignHttpClientProperties
+  httpclient:
+    ##连接超时
+    connectionTimeout: 3000
+    ##连接重试
+    connectionTimerRepeat: 10000
+    ##最大连接数
+    maxConnections: 200
+    ##接受302重定向
+    followRedirects: true
+    ##启用https安全,默认关闭ssl域名验证
+    disableSslValidation: true
+    ##连接生存时间
+    timeToLive: 900
+    ##连接生存时间单位
+    timeToLiveUnit: SECONDS
+  client:
+    config:
+      ##client默认配置，装配于org.springframework.cloud.openfeign.FeignClientProperties
+      default:
+        connectTimeout: 3000
+        readTimeout: 10000
+        ## 开启feign日志
+        loggerLevel: full
+
+logging:
+  level:
+    org.apache.kafka: INFO
+    com:
+      cz:
+        viid:
+          rpc: INFO

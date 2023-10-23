@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cz.viid.framework.mapper.TollgateDeviceMapper">
+
+    <select id="findUnSubscribeDeviceByArea" resultType="TollgateDevice" parameterType="String">
+        with USED_RES as (
+        select
+        unnest(resource_uri) resource_uri
+        from
+        viid_subscribe
+        where viid_node = #{nodeId}
+        )
+        select * from ga1400_tollgate_device a
+        where a."org_code" like concat(#{orgCode}, '%')
+        and not exists (select resource_uri from USED_RES u where u.resource_uri = a."tollgate_id")
+    </select>
+
+</mapper>
