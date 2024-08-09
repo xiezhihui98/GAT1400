@@ -17,7 +17,7 @@ Java、Kafka、Redis、MySQL
 3. 设备数据(结构化数据/图片)汇聚到上层提供给业务应用
 
 #### 页面展示
-
+<img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_instance.png"/>
 <img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_device.png"/>
 <img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_subscribe.png"/>
 <img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_collect.png"/>
