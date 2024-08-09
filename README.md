@@ -19,8 +19,8 @@ Java、Kafka、Redis、MySQL
 #### 页面展示
 
 <img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_device.png"/>
-<img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_face.png"/>
-<img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_person.png"/>
+<img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_subscribe.png"/>
+<img alt="drawing" src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/viid_collect.png"/>
 
 #### 使用说明
 
@@ -30,5 +30,4 @@ Java、Kafka、Redis、MySQL
 #### 打赏和联系
 可提供生产级别成品Java后端和vue前端样例代码
 
-<img src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/payment.jpg" alt="drawing" width="200" height="200"/>
 <img src="https://gitee.com/xzh-dev/viid-server/raw/master/assets/information.jpg" alt="drawing" width="200" height="200"/>
